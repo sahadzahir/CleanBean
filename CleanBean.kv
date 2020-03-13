@@ -1,0 +1,22 @@
+<BinIcon@Button>:
+    background_normal: 'red.png'
+    
+    
+    
+<BinGL>:
+    id: bins
+    rows: 2
+    padding: 40
+    spacing: 80
+                
+    BoxLayout:
+        BinIcon:
+            id: bin1
+            size_hint: 1, 0
+    BoxLayout:
+        Button:
+            text: "up"
+            on_press: bin1.size_hint[1] += 0.1
+        Button:
+            text: "down"
+            on_press: bin1.size_hint[1] -= 0.1

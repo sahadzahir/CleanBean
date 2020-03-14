@@ -23,10 +23,6 @@ config = {
 }
 
 
-# Create a firebase object by specifying the URL of the database and its secret token.
-# The firebase object has functions put and get, that allows user to put data onto 
-# the database and also retrieve data from the database.
-
 firebase = pyrebase.initialize_app(config)
 auth = firebase.auth()
 user = auth.sign_in_with_email_and_password(email, password)
@@ -35,17 +31,15 @@ fbinfo = db.child("Reading").get(user['idToken'])
 incoming = fbinfo.val()
 
 
-
-    # Inherit Kivy's App class which represents the window
-    # for our widgets
-    # HelloKivy inherits all the fields and methods
-    # from Kivy
 class BinGL(GridLayout):
     bin1 = ObjectProperty(None)
+    
     def message(self):
-        print("Size changed")
-    def example(self):
-        return(firebase.database().child("Reading").get(user['idToken']).val())
+        print("Size changed") #message function for checking purposes
+    
+    def incoming(self):
+        return(firebase.database().child("Reading").get(user['idToken']).val()) #function to retrieve reading from database
+    
     def update(self):
         while firebase.database().child("Reading").get(user['idToken']).val():
             self.bin1.size_hint[1] = firebase.database().child("Reading").get(user['idToken']).val()
@@ -57,9 +51,7 @@ class BinGL(GridLayout):
     
         # This returns the content we want in the window
 class CleanBean2App(App):    
-
-    def build(self):
-        
+    def build(self): 
         return BinGL()
 
 

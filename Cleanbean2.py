@@ -56,7 +56,7 @@ class BinGL(GridLayout):
         
     
         # This returns the content we want in the window
-class CleanBeanApp(App):    
+class CleanBean2App(App):    
 
     def build(self):
         

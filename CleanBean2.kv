@@ -21,7 +21,7 @@
     BoxLayout:
         Button:
             text: "refresh"
-            on_press: bin1.size_hint[1] = bins.example()
+            on_press: bin1.size_hint[1] = bins.incoming()
         Button:
             text: "start updating"
             on_press: root.update()

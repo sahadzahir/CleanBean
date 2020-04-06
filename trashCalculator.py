@@ -1,5 +1,27 @@
 import RPi.GPIO as GPIO
 import time
+from libdw import pyrebase
+
+#Database Set-Up
+
+projectid = "cleanbean-9e2f5"
+dburl = "https://" + projectid + ".firebaseio.com"
+authdomain = projectid + ".firebaseapp.com"
+apikey = "AIzaSyA6H-rDpfGJZcTqFhf69t3VYbbOzfUW0EM"
+email = "kenzho_lim@mymail.sutd.edu.sg"
+password = "123456"
+
+config = {
+    "apiKey": apikey,
+    "authDomain": authdomain,
+    "databaseURL": dburl,
+}
+
+
+firebase = pyrebase.initialize_app(config)
+auth = firebase.auth()
+user = auth.sign_in_with_email_and_password(email, password)
+db = firebase.database()
  
 #GPIO Mode (BOARD / BCM)
 GPIO.setmode(GPIO.BCM)
@@ -47,14 +69,16 @@ def distance():
 if __name__ == '__main__':
     try:
         distold = binHeight
+        distance_list = []
+        trash_height_list = []
         while True:
-            distance_list = []
             dist = distance()
             distance_list.append(dist)
             print ("Measured Distance = %.1f cm" % dist)
             time.sleep(1)
             print(trashHeight(dist))
- 
+            trash_height = trashHeight(dist)
+            db.child("Bin_1").set(trash_height, user['idToken']) 
         # Reset by pressing CTRL + C
     except KeyboardInterrupt:
         print("Measurement stopped by User")

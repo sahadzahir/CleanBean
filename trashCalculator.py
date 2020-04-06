@@ -34,10 +34,10 @@ GPIO_ECHO = 5
 GPIO.setup(GPIO_TRIGGER, GPIO.OUT)
 GPIO.setup(GPIO_ECHO, GPIO.IN)
 
-binHeight = 100
+binHeight = 18.6
 
 def trashHeight(distance):
-    return (binHeight-distance)/binHeight
+    return 1-(binHeight-distance)/binHeight
 
 def distance():
     # set Trigger to HIGH
